@@ -1,4 +1,4 @@
-import MessageEmbed from "../MessageHelpers/Embed.js";
+import MessageEmbed from "../Helpers/Messages/Embed.js";
 
 export default (client, message) => {
 	const commandPrefix = "!";
