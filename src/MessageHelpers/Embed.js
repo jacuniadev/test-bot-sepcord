@@ -1,5 +1,5 @@
 function GetTypeColor(type) {
-	let DEFINED_TYPE_COLORS = {
+	const DEFINED_TYPE_COLORS = {
 		success: "#59db18",
 		warning: "#fa9c05",
 		error: "#fa0505",
