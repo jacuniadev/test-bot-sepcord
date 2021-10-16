@@ -23,8 +23,6 @@ export default class MySQL {
 
 	constructor() {
 		if (!MySQL.CONNECTION) {
-			console.log("MySQL :: Tworzenie instancji połączenia z bazą");
-
 			MySQL.CONNECTION = createConnection(MySQL.LOGIN_INFO);
 
 			MySQL.CONNECTION.config.queryFormat = (query, values) => {
@@ -33,8 +31,6 @@ export default class MySQL {
 
 				// zamiana values czyli values = { id: 1 } i zapytanie np. select * from bot_settings where id = :id
 				return query.replace(/\:(\w+)/g, (string, key) => {
-					console.log("MySQL :: Wykonano zapytanie", query.replace(/\:(\w+)/g, values.hasOwnProperty(key)));
-
 					if (values.hasOwnProperty(key))
 						return escape(values[key]);
 
@@ -44,20 +40,18 @@ export default class MySQL {
 
 			this.connect();
 		} else
-			throw Error("MySQL :: Instancja połączenia z bazą jest już zdefiniowana!");
+			throw Error("Instancja połączenia z bazą jest już zdefiniowana!");
 	}
 
 	connect() {
 		if (!MySQL.CONNECTION)
-			throw new Error("MySQL :: Brak instancji połączenia z bazą!");
-
-		console.log("MySQL :: Łączenie z bazą danych..");
+			throw Error("Brak instancji połączenia z bazą!");
 
 		MySQL.CONNECTION.connect(error => {
 			if (error)
 				throw error;
 
-			console.log("MySQL :: Baza pomyślnie połączona!");
+			console.log("Połączono do bazy danych pomyślnie!");
 		});
 	}
 

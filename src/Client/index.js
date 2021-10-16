@@ -1,7 +1,7 @@
 /** 
  * @project SAPCord Discord Bot
  * @author xkotori (Norelock)
- * @classdesc MySQL Database Manager
+ * @classdesc Client Core
 */
 
 /*
@@ -20,13 +20,16 @@ export default class BotClient extends Client {
 
 	constructor() {
 		super({
-			partials: ['MESSAGE', 'CHANNEL', 'REACTION'], 
-			intents: ['GUILDS', 'GUILD_MESSAGES']
+			partials: ['MESSAGE', 'CHANNEL', 'REACTION', 'USER', 'GUILD_MEMBER'], 
+			intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_MEMBERS']
 		});
 
 		this.commands = new Collection;
+		this.prefix = "!";
+
 		this.login(BotClient.TOKEN);
 
 		Loader.EVENTS_LOAD(this);
+		Loader.COMMANDS_LOAD(this);
 	}
 }
