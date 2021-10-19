@@ -20,19 +20,14 @@ function GetTypeColor(type) {
 
 export default class extends MessageEmbed {
 	constructor(message, data) {
-		if (!message || !message instanceof Message)
-			throw Error("oczekiwano w argumencie 'message' instancję 'Message'");
-
 		super();
 
 		const color = GetTypeColor(data.type || "default");
 
-		const userData = message.member.user || null,
+		const userData = message.member ? message.member.user : message.user || null,
 			userAvatar = userData.displayAvatarURL({
 				size: 128
 			});
-
-		console.log(message.channel.type);
 
 		this.setAuthor(userData.tag, userAvatar);
 

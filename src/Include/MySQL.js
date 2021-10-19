@@ -32,8 +32,8 @@ export default class MySQL {
 				// zamiana values czyli values = { id: 1 } i zapytanie np. select * from bot_settings where id = :id
 				return query.replace(/\:(\w+)/g, (string, key) => {
 					if (values.hasOwnProperty(key))
-						return escape(values[key]);
-
+						return decodeURIComponent(escape(values[key]));
+						
 					return string;
 				});
 			}

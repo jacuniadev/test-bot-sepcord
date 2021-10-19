@@ -29,12 +29,10 @@ export default class {
 			const EVENTS_FILES = readdirSync(EVENTS_PATH_FS).filter(file => file.endsWith(".js"));
 
 			for (const EVENT_FILE of EVENTS_FILES) {
-				const EVENT_NAME = EVENT_FILE.replace(/\.[^.]*$/, ""),
-					EVENT = (await import(this.FILE_PATHS.events + EVENT_FILE)).default;
+				const event = (await import(this.FILE_PATHS.events + EVENT_FILE)).default;
 
-				// bindowanie eventu
-				if (EVENT)
-					client.on(EVENT_NAME, EVENT.bind(null, client)), console.log("Loader :: Bindowanie eventu '" + EVENT_NAME + "'"), this.LOADED_EVENTS++;
+				if (event)
+					client[event.once ? "once" : "on"](event.name, event.execute.bind(null, client)), console.log("event zbindowany", event.name)
 			}
 		} else
 			throw Error("Loader :: Folder z eventami nie istnieje!");

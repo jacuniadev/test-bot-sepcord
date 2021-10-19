@@ -10,7 +10,10 @@
 */
 
 // Blibioteki normalne
-import { Client, Collection } from "discord.js";
+import { Client, Collection, Intents } from "discord.js";
+
+// Baza danych
+import MySQL from "../Include/MySQL.js";
 
 // Pomocniczne
 import Loader from "../Helpers/Loader.js";
@@ -21,11 +24,13 @@ export default class BotClient extends Client {
 	constructor() {
 		super({
 			partials: ['MESSAGE', 'CHANNEL', 'REACTION', 'USER', 'GUILD_MEMBER'], 
-			intents: ['GUILDS', 'GUILD_MESSAGES', 'GUILD_MEMBERS']
+			intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_BANS, Intents.FLAGS.GUILD_PRESENCES, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS]
 		});
-
-		this.commands = new Collection;
+		
 		this.prefix = "!";
+		
+		this.database = new MySQL;
+		this.commands = new Collection;
 
 		this.login(BotClient.TOKEN);
 
