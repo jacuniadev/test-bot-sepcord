@@ -26,8 +26,6 @@ export default {
 				userId: member.id,
 				guildId: guild.id
 			}, result => {
-				console.log(result);
-	
 				if (result[0])
 					resolve(true);
 				else
