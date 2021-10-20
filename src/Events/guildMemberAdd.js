@@ -24,6 +24,10 @@ export default {
                 title: Strings.INFO.ON_REJOIN_MUTE.TITLE,
                 description: Strings.INFO.ON_REJOIN_MUTE.DESCRIPTION.replace("{servername}", member.guild.name)
             })).then(_ => member.roles.add(role));
+
+            console.log("guildMemberAdd :: Użytkownikowi o id", member.id, "została nadana poprzednia kara którą posiadał na serwerze", member.guild.id)
         }
+        
+        console.log("guildMemberAdd :: Użytkownik o id", member.id, "dołączył na serwer", member.guild.id)
 	}
 }

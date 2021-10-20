@@ -87,8 +87,18 @@ export default {
 		reason = decodeURIComponent(reason);
 
 		member.roles.add(role).then(_ => {
-			const MD_DSC = Strings.SUCCESS.MUTE_COMMAND.MUTED.DESCRIPTION.replace("{nickname}", member.user.tag).replace("{muteEnd}", time).replace("{reason}", reason);
+			client.database.queryFree("INSERT INTO muted_users (user_id, guild_id, date_muted, date_mute_end, reason) VALUES (':user_id', ':guild_id', ':date_muted', ':date_mute_end', ':reason')", {
+				user_id: member.id,
+				guild_id: message.guild.id,
+				date_muted: now,
+				date_mute_end: end,
+				reason
+			});
 
+			console.log("mute :: Użytkownik o id", member.id, "został wyciszony na okres", time, "na serwerze", message.guild.id);
+
+			const MD_DSC = Strings.SUCCESS.MUTE_COMMAND.MUTED.DESCRIPTION.replace("{nickname}", member.user.tag).replace("{muteEnd}", time).replace("{reason}", reason);
+			
 			message.reply(new MessageEmbed(message, {
 				type: "success",
 				title: Strings.SUCCESS.MUTE_COMMAND.MUTED.TITLE,
@@ -104,14 +114,6 @@ export default {
 				title: Strings.SUCCESS.MUTE_COMMAND.MEMBER_MUTE.TITLE,
 				description: M_DSC
 			}));
-
-			client.database.queryFree("INSERT INTO muted_users (user_id, guild_id, date_muted, date_mute_end, reason) VALUES (':user_id', ':guild_id', ':date_muted', ':date_mute_end', ':reason')", {
-				user_id: member.id,
-				guild_id: message.guild.id,
-				date_muted: now,
-				date_mute_end: end,
-				reason
-			});
 		}).catch(_ => {
 			if (_.status === 403)
 				message.reply(new MessageEmbed(message, {

@@ -45,6 +45,7 @@ export default {
 				}
 			}
 
+			console.log("messageCreate :: Użytkownik o id", message.member.id, "na serwerze", message.guild.id, "wywołał komendę", `${client.prefix}${cmd}`);
 			command.action(client, message, args);
 		} else
 			return message.reply(new MessageEmbed(message, {

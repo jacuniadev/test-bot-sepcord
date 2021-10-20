@@ -28,7 +28,7 @@ export default {
             COMMAND_DESCRIPTION = COMMAND_DESCRIPTION.replace("{category}", COMMAND_DATA.category);
             COMMAND_DESCRIPTION = COMMAND_DESCRIPTION.replace("{description}", COMMAND_DATA.description);
 
-            commands.push({ name: COMMAND, value: COMMAND_DESCRIPTION, inline: true });
+            commands.push({ name: COMMAND, value: COMMAND_DESCRIPTION });
         }
 
         const e = new MessageEmbed(message, {

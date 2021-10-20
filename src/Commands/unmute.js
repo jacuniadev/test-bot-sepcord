@@ -65,6 +65,8 @@ export default {
                 guildId: message.guild.id,
                 userId: member.id
             });
+
+            console.log("unmute :: Użytkownik o id", member.id, "został odciszony na serwerze", message.guild.id)
         }).catch(_ => {
             console.log("unmute", _);
 
